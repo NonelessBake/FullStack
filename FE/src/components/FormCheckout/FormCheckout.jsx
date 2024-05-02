@@ -26,7 +26,7 @@ export default function FormCheckout() {
       };
       fetch();
     }
-  }, [navigate]);
+  }, [navigate, isLogin]);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
