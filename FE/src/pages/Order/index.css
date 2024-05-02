@@ -1,0 +1,49 @@
+.order-page .navigation-link {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  font-size: 23px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+.order-page .active-item {
+  position: relative;
+}
+.order-page .active-item::before {
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  bottom: -2px;
+  left: 0;
+  position: absolute;
+}
+.order-page .hover-active {
+  position: relative;
+}
+.order-page .hover-active::before {
+  content: "";
+  height: 1px;
+  width: 0;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  transition: 0.3s;
+  background-color: black;
+}
+.order-page .hover-active::after {
+  content: "";
+  height: 1px;
+  width: 0;
+  bottom: -2px;
+  right: 50%;
+  position: absolute;
+  transition: 0.3s;
+  background-color: black;
+}
+.order-page li:hover .hover-active::before {
+  width: 50%;
+}
+.order-page li:hover .hover-active::after {
+  width: 50%;
+}

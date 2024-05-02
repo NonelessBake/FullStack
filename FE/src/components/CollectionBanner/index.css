@@ -1,0 +1,67 @@
+.collection-banner-container {
+  display: flex;
+  gap: 2%;
+  width: 100%;
+}
+.collection-banner .collection-item {
+  overflow: hidden;
+  position: relative;
+}
+.collection-banner .collection-img {
+  position: relative;
+}
+.collection-banner .collection-img img {
+  width: 100vw;
+  transition: 0.8s;
+  cursor: pointer;
+}
+.collection-banner .collection-img:hover img {
+  transform: scale(1.1);
+}
+.collection-banner .collection-info {
+  position: absolute;
+  top: 45%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.collection-banner .collection-info .title {
+  font-size: 16px;
+}
+.collection-banner .collection-info .content {
+  font-size: 50px;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+.collection-banner .collection-info .explore {
+  width: fit-content;
+}
+.collection-banner .collection-info .explore a {
+  font-size: 16px;
+  position: relative;
+}
+.collection-banner .collection-info .explore a::before,
+.collection-banner .collection-info .explore a::after {
+  content: "";
+  background-color: white;
+  position: absolute;
+  bottom: -5%;
+  width: 50%;
+  height: 2px;
+  transition: 0.3s;
+}
+.collection-banner .collection-info .explore a::before {
+  left: 50%;
+}
+.collection-banner .collection-info .explore a::after {
+  right: 50%;
+}
+.collection-banner .collection-info .explore:hover a::after,
+.collection-banner .collection-info .explore:hover a::before {
+  width: 25%;
+}

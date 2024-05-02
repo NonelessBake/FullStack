@@ -1,0 +1,31 @@
+.checkout {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.checkout input {
+  display: block;
+  width: 100%;
+  border: 1px solid #c6c6c6;
+  padding: 6px 5px;
+}
+.checkout div {
+  margin-bottom: 10px;
+}
+.checkout button {
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  padding: 10px 25px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  border-radius: 2px;
+  transition: 0.15s;
+}
+.checkout button:hover {
+  background: white;
+  color: black;
+}
+.checkout button:active {
+  background: yellow;
+}

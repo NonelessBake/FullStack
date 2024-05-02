@@ -1,0 +1,65 @@
+.product-th {
+  width: 40%;
+}
+.product-col {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.product-col img {
+  width: 30%;
+}
+
+.product-col p {
+  width: 70%;
+}
+.price-col {
+  width: fit-content;
+}
+.quantity-col {
+  width: 20%;
+}
+.quantity-col div {
+  display: flex;
+}
+.quantity-col button {
+  width: 25%;
+  border: 1px solid black;
+}
+.quantity-col input {
+  width: 30%;
+  text-align: center;
+}
+.remove-cart-item {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: 0.15s;
+}
+.remove-cart-item:hover {
+  color: white;
+  border-color: black;
+  background: black;
+}
+
+.quantity-col .add-quantity-button,
+.quantity-col .sub-quantity-button {
+  width: 30px;
+  height: 30px;
+  transition: 0.15s;
+}
+.quantity-col .add-quantity-button:hover,
+.quantity-col .sub-quantity-button:hover {
+  background-color: black;
+  color: white;
+}
+.quantity-col input {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  height: 30px;
+}

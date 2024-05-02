@@ -1,0 +1,1 @@
+export const generateArray = (num) => { let newArray = []; for (let i = 0; i < num; i++) { newArray.push(i); } return newArray; }

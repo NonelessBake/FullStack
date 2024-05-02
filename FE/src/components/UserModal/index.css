@@ -1,0 +1,26 @@
+.user-modal {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 100;
+  background: white;
+  color: #c6c6c6;
+  min-width: 10vw;
+  text-align: center;
+  text-align: left;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+.user-modal p {
+  border-bottom: 1px solid #c6c6c6;
+  padding: 5px 0;
+}
+.user-modal .logged-in-user a:hover {
+  color: black;
+}
+.user-modal .logged-in-user button:hover {
+  color: black;
+}
+.user-modal .navigate-auth a:hover {
+  text-decoration: underline;
+}

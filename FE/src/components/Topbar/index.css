@@ -1,0 +1,50 @@
+.topbar-container {
+  width: 100%;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.15);
+}
+.topbar-inner {
+  justify-content: space-between;
+  padding: 15px 15px;
+  font-size: 14px;
+  max-width: 1700px;
+  margin: 0 auto;
+  display: flex;
+  /* color: #fff; */
+}
+.topbar-inner .left-side,
+.topbar-inner .right-side {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.topbar-inner .left-side .location,
+.topbar-inner .left-side .contact,
+.topbar-inner .right-side .gift-cards,
+.topbar-inner .right-side .faqs {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+.topbar-inner .left-side .contact::before,
+.topbar-inner .right-side .faqs::before {
+  content: "";
+  width: 1px;
+  height: 70%;
+  background-color: white;
+  position: absolute;
+  left: -8px;
+  top: 15%;
+}
+.topbar-single p:hover {
+  color: black;
+}
+.topbar-single {
+  border-bottom: 1px solid #c6c6c6;
+  color: #868686;
+}
+.topbar-single .left-side .contact::before,
+.topbar-single .right-side .faqs::before {
+  background-color: black;
+}

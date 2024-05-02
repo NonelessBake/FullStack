@@ -1,0 +1,59 @@
+.profile {
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+.profile-links {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+.profile .navigation-link {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  font-size: 23px;
+  text-transform: capitalize;
+  margin-bottom: 60px;
+}
+.profile .active-item {
+  position: relative;
+}
+.profile .active-item::before {
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  bottom: -2px;
+  left: 0;
+  position: absolute;
+}
+.profile .hover-active {
+  position: relative;
+}
+.profile .hover-active::before {
+  content: "";
+  height: 1px;
+  width: 0;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  transition: 0.3s;
+  background-color: black;
+}
+.profile .hover-active::after {
+  content: "";
+  height: 1px;
+  width: 0;
+  bottom: -2px;
+  right: 50%;
+  position: absolute;
+  transition: 0.3s;
+  background-color: black;
+}
+.profile li:hover .hover-active::before {
+  width: 50%;
+}
+.profile li:hover .hover-active::after {
+  width: 50%;
+}

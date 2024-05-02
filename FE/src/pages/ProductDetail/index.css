@@ -1,0 +1,87 @@
+.product-detail {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  padding: 15px;
+  gap: 5%;
+  margin-bottom: 100px;
+}
+.product-detail-content .top,
+.product-detail-content .bottom {
+  padding: 30px 0;
+  border-bottom: 1px solid #868686;
+}
+.product-detail-content .name {
+  font-size: 40px;
+}
+.product-detail-content .old-price {
+  color: #868686;
+  font-weight: 500;
+  text-decoration: line-through;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.product-detail-content .new-price {
+  font-weight: 500;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.product-detail-content .discount {
+  display: inline-block;
+  position: relative;
+  color: red;
+  border: 1px solid red;
+  padding: 0 30px 0 15px;
+  border-right: none;
+}
+.product-detail-carousel {
+  max-height: 100vh;
+  width: 100%;
+}
+.product-detail-carousel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-detail-content .discount::before {
+  content: "";
+  width: 1px;
+  height: 67%;
+  background-color: red;
+  position: absolute;
+  top: -9%;
+  right: 9%;
+  transform: rotate(45deg);
+}
+.product-detail-content .discount::after {
+  content: "";
+  width: 1px;
+  height: 67%;
+  width: 1px;
+  background-color: red;
+  position: absolute;
+  bottom: -9%;
+  right: 9%;
+  transform: rotate(135deg);
+}
+.product-detail-content .discription {
+  line-height: 2rem;
+  color: #868686;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.product-detail .info-tag {
+  padding: 20px 0;
+  line-height: 2.3rem;
+  font-size: 15px;
+  text-transform: capitalize;
+}
+.product-detail .info-tag a {
+  font-weight: 500;
+}
+.product-detail .info-tag a:hover {
+  text-decoration: underline;
+}

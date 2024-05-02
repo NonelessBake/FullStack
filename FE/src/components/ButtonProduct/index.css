@@ -1,0 +1,16 @@
+.product-button-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.product-button-item button {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 5px;
+  border-radius: 2%;
+  transition: 0.2s;
+}
+.product-button-item button:hover {
+  color: white;
+  background-color: black;
+}

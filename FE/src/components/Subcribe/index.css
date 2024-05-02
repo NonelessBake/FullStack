@@ -1,0 +1,30 @@
+.subcribe-contaner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1700px;
+  margin: 0 auto;
+  flex-direction: column;
+  padding: 100px 10px;
+}
+.subcribe-contaner h3 {
+  padding: 10px;
+  font-size: 35px;
+  font-weight: 500;
+}
+.subcribe-contaner input {
+  width: 600px;
+  padding: 5px 0;
+  margin-right: 15px;
+  border-bottom: 2px solid black;
+}
+.subcribe-contaner button {
+  padding: 5px 0;
+  border-bottom: 2px solid black;
+}
+.subcribe-contaner button:hover p {
+  font-style: italic;
+}
+.email-subcrite {
+  margin-top: 40px;
+}

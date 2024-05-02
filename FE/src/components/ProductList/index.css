@@ -1,0 +1,8 @@
+.product-list-container {
+  gap: 30px;
+  max-width: 1700px;
+}
+.product-list-container .product-button-item {
+  display: flex;
+  padding: 10px;
+}
