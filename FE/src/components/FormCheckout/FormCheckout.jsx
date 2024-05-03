@@ -1,21 +1,20 @@
 import "./index.css";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { userService } from "../../services/user";
 
-export default function FormCheckout() {
-  const { userInfo } = useSelector((state) => state.auth);
+export default function FormCheckout(newProps) {
+  const { userInfo, accessToken } = useSelector((state) => state.auth);
   const { id } = useParams();
   const [info, setInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const { isLogin } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
+  const { disabled } = newProps;
   useEffect(() => {
     if (isLogin) {
       if (id !== userInfo._id) {
-        alert("You need to login to access");
         navigate("");
       }
       const fetch = async () => {
@@ -26,7 +25,7 @@ export default function FormCheckout() {
       };
       fetch();
     }
-  }, [navigate, isLogin]);
+  }, [accessToken]);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
@@ -54,6 +53,7 @@ export default function FormCheckout() {
               First Name:{" "}
             </label>
             <input
+              disabled={disabled}
               onChange={handleOnChange}
               value={info.firstName}
               type="text"
@@ -65,6 +65,7 @@ export default function FormCheckout() {
               Last Name:{" "}
             </label>
             <input
+              disabled={disabled}
               onChange={handleOnChange}
               value={info.lastName}
               type="text"
@@ -76,6 +77,7 @@ export default function FormCheckout() {
               Phone:{" "}
             </label>
             <input
+              disabled={disabled}
               onChange={handleOnChange}
               value={info.phoneNumber}
               type="number"
@@ -87,6 +89,7 @@ export default function FormCheckout() {
               Address:{" "}
             </label>
             <input
+              disabled={disabled}
               onChange={handleOnChange}
               value={info.address}
               type="text"
@@ -98,15 +101,27 @@ export default function FormCheckout() {
               City:{" "}
             </label>
             <input
+              disabled={disabled}
               onChange={handleOnChange}
               value={info.city}
               type="text"
               name="city"
             />
           </div>
-          <div className="submit">
-            <button>Save change</button>
-          </div>
+          {!disabled ? (
+            <div className="submit">
+              <button>Save change</button>
+            </div>
+          ) : (
+            userInfo && (
+              <NavLink
+                className="link-to-checkout"
+                to={`/profile/${userInfo._id}/info`}
+              >
+                Change Information &rarr;
+              </NavLink>
+            )
+          )}
         </form>
       )}
     </>

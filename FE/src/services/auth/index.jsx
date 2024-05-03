@@ -27,6 +27,8 @@ export const authService = {
           accessToken,
           refreshToken,
         };
+      } else {
+        throw new Error("Incorrect password");
       }
     } catch (err) {
       throw new Error(err.message);

@@ -2,8 +2,6 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RootLayout from "./layout/RootLayout";
 import Home from "./pages/Home/Home";
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { APP_CONFIG } from "./config/appConfig";
@@ -19,6 +17,9 @@ import CheckoutInfo from "./pages/CheckoutInfo/CheckoutInfo";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import OrderList from "./pages/OrderList/OrderList";
 import ProtectedProfileRoute from "./protectedProfile/ProtectedProfileRoute";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );

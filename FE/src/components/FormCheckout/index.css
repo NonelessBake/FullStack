@@ -29,3 +29,18 @@
 .checkout button:active {
   background: yellow;
 }
+.link-to-checkout {
+  border: 1px solid black;
+  width: fit-content;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: block;
+  margin-top: 20px;
+  color: white;
+  background: black;
+  transition: 0.15s;
+}
+.link-to-checkout:hover {
+  color: black;
+  background: white;
+}

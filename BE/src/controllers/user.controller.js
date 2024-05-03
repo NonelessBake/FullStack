@@ -7,15 +7,18 @@ const userController =
 {
     register: async (req, res) => {
         try {
-            const { username, email, password } = req.body
+            const { username, email, password, password_2 } = req.body
             const existedAccount = await UserModel.findOne({ email })
             if (existedAccount) throw new Error('Email existed')
             const hash = bcryptHasing.hashingPassword(password)
+            const hash_2 = bcryptHasing.hashingPassword(password_2)
             const createdUser = await UserModel.create({
                 username,
                 email,
                 password: hash.password,
+                password_2: hash_2.password,
                 salt: hash.salt,
+                salt_2: hash_2.salt,
             })
 
             const createdUserInfo = await UserInfoModel.create({
@@ -27,7 +30,7 @@ const userController =
             })
         } catch (error) {
             res.status(403).json({
-                message: error.message,
+                message: "Incorrect email or password",
                 success: false
             })
         }
@@ -134,7 +137,6 @@ const userController =
         try {
             const { id } = req.params
             const { currentPassword, newPassword, confirmNewPassword } = req.body
-            console.log(req.body);
             if (newPassword !== confirmNewPassword) throw new Error("Newpassword Incorrect")
             const user = req.user
             if (user.userId !== id) throw new Error(`You are now allowed to do this`)
@@ -143,6 +145,24 @@ const userController =
             if (!checkPassword) throw new Error('Password is not correct')
             const hash = bcryptHasing.hashingPassword(newPassword)
             await UserModel.findOneAndUpdate({ _id: id }, {
+                password: hash.password,
+                salt: hash.salt
+            })
+            res.status(201).json({ message: "Password change successful" })
+        }
+        catch (error) {
+            res.status(403).json({ message: "Password Incorrect" })
+        }
+    },
+    resetPassword: async (req, res) => {
+        try {
+            const { email, password_2, newPassword } = req.body
+            const currentUser = await UserModel.findOne({ email })
+            if (!currentUser) throw new Error("Wrong email")
+            const checkPassword_2 = bcryptHasing.verifyPassword(password_2, currentUser.password_2, currentUser.salt_2)
+            if (!checkPassword_2) throw new Error('Password is not correct')
+            const hash = bcryptHasing.hashingPassword(newPassword)
+            await UserModel.findOneAndUpdate({ email }, {
                 password: hash.password,
                 salt: hash.salt
             })

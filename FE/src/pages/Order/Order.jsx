@@ -22,14 +22,6 @@ export default function Order() {
             checkout
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to={`${isLogin ? "/order/order-tracking" : "/login"}`}
-            className={activeClass}
-          >
-            order tracking
-          </NavLink>
-        </li>
       </ul>
       <Outlet />
     </div>

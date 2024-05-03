@@ -9,28 +9,29 @@ import { Link, Navigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { isLogin } = useSelector((state) => state.auth);
   const [isFail, setIsFail] = useState(false);
   const dispatch = useDispatch();
   const onLogin = async (event) => {
     try {
       event.preventDefault();
-      const { accessToken, userInfo, refreshToken } = await authService.login({
+      const data = await authService.login({
         email,
         password,
       });
+      if (!data) {
+        setIsFail(true);
+      }
+      const { accessToken, userInfo, refreshToken } = data;
       if (accessToken && userInfo) {
         localStorage.setItem(
           APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN,
           refreshToken
         );
         dispatch(login({ accessToken, userInfo }));
-      } else {
-        setIsFail(true);
       }
     } catch (error) {
-      if (error) setIsFail(true);
+      setIsFail(true);
     }
   };
   return (
@@ -40,6 +41,8 @@ export default function Login() {
       ) : (
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden bg-violet-300">
           <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+            <Link to="/">Home</Link>
+
             <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
               Sign in
             </h1>
@@ -80,7 +83,10 @@ export default function Login() {
                 </div>
               )}
               <div className="flex justify-between">
-                <Link className="text-xs text-purple-600 hover:underline">
+                <Link
+                  to="/reset-password"
+                  className="text-xs text-purple-600 hover:underline"
+                >
                   Forget Password?
                 </Link>
                 <Link

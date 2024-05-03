@@ -1,26 +1,25 @@
 
+import mongoose from "mongoose"
 import { OrderStatus } from "../config/order_status.config.js"
 import OrderModel from "../models/order.model.js"
 import { ProductModel } from "../models/product.model.js"
 import { checkStatus } from "../utils/orderStatus.js"
 import pageSplit from "../utils/pageSplit.js"
-
+import { ObjectId } from 'mongodb'
 const orderController = {
     getAllOrders: async (req, res) => {
         try {
-            const { page, pageSize } = req.query
             const role = req.role
             const user = req.user
             let findData = []
             if (role === 'admin') {
-                findData = await pageSplit(page, pageSize, OrderModel, null, 'items.product')
+                findData = await OrderModel.find().populate("orderList.productId")
             }
             if (role === 'customer') {
-                findData = await pageSplit(page, pageSize, OrderModel, {
+                findData = await OrderModel.find({
                     customer: user.userId
-                }, 'items.product')
+                }).populate('orderList.productId')
             }
-
             return res.status(200).json({
                 data: findData,
                 success: true
@@ -37,8 +36,7 @@ const orderController = {
     getOrderById: async (req, res) => {
         try {
             const { id } = req.params;
-            const { page, pageSize } = req.query
-            const data = await pageSplit(page, pageSize, OrderModel, { _id: id }, 'items.product')
+            const data = await OrderModel.findById(id)
             if (!data) throw new Error('Order not found')
 
             return res.status(200).json({
@@ -89,7 +87,6 @@ const orderController = {
                     status,
                     _id: user.userId
                 })
-
                 return res.status(200).json({
                     data: data,
                     success: true
@@ -102,30 +99,27 @@ const orderController = {
                 success: false
             })
         }
-
     },
     createOrder: async (req, res) => {
         try {
-            const { items, totalPrice } = req.body
-            /* items = [{
-                product: "id",
-                quanity: 123123
-            },
-                product: "id",
-                quanity: 2312312
-            ]*/
+            const { orderItems, subTotal } = req.body
             const user = req.user
-            for (let i = 0; i < items.length; i++) {
-                const currentItem = await ProductModel.findById(items[i].product)
-                if (!currentItem) {
-                    throw new Error('Product(s) not found')
-                }
-            }
+            const promises = orderItems.map(async (item) => {
+                const currentItem = await ProductModel.findById(item.productId);
+                if (!currentItem) { throw new Error(`ProductId ${item.productId} not found`) }
+                return {
+                    productId: new ObjectId(item.productId),
+                    quantity: item.quantity,
+                    totalprice: item.totalPrice
+                };
+            });
+            const orderList = await Promise.all(promises)
             const createdOrder = await OrderModel.create({
-                items,
+                orderList: orderList,
                 customer: user.userId,
-                totalPrice
+                subTotal
             })
+            console.log('1', createdOrder);
             res.status(201).json({
                 data: createdOrder,
                 success: true,

@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 import Collections from "../database/collection.js";
 const orderSchema = new mongoose.Schema({
-    items: [{
-        product: {
+    orderList: [{
+        productId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: Collections.PRODUCTS,
             required: true
         },
         quantity: {
+            type: Number,
+            required: true
+        },
+        totalprice: {
             type: Number,
             required: true
         }
@@ -17,13 +21,9 @@ const orderSchema = new mongoose.Schema({
         ref: Collections.USERS,
         required: true
     },
-    totalPrice: {
+    subTotal: {
         type: Number,
         required: true
-    },
-    orderDate: {
-        type: Date,
-        default: Date.now
     },
     status: {
         type: String,

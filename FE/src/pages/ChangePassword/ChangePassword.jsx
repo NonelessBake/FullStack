@@ -1,12 +1,9 @@
 import { useSelector } from "react-redux";
 import "./index.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { userService } from "../../services/user";
-import { current } from "@reduxjs/toolkit";
 export default function ChangePassword() {
   const { userInfo } = useSelector((state) => state.auth);
-  const { id } = useParams();
   const [password, setPassword] = useState({
     currentPassword: "",
     newPassword: "",
@@ -31,8 +28,11 @@ export default function ChangePassword() {
         password.currentPassword !== password.newPassword
       ) {
         try {
+          setIsLoading(true);
           const data = await userService.updatePassword(userInfo._id, password);
-          if (!data) {
+          setIsLoading(false);
+          setPassword({});
+          if (data.response.status === 403) {
             setError("Password incorrect");
           } else {
             setError("");
@@ -49,7 +49,7 @@ export default function ChangePassword() {
   return (
     <>
       {isLoading ? (
-        <div>Loadding</div>
+        <div>Loadding...</div>
       ) : (
         <form onSubmit={onChangePassword} className="update-password">
           <div>

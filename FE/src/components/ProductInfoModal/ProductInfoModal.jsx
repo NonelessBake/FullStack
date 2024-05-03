@@ -1,6 +1,7 @@
 import { discountPrice } from "../../utils/discountPrice";
 import { formatPrice } from "../../utils/formatPrice";
 import ButtonAddToCart from "../ButtonAddToCart/ButtonAddToCart";
+import { Link } from "react-router-dom";
 import "./index.css";
 
 export default function ProductInfoModal(newProps) {
@@ -14,7 +15,9 @@ export default function ProductInfoModal(newProps) {
           <img src={imageUrl[0]} alt={productName} />
         </div>
         <div className="product-content-modal">
-          <h3 className="product-name-modal">{productName}</h3>
+          <h3 className="product-name-modal">
+            <Link to={`/shop/${_id}`}>{productName}</Link>
+          </h3>
           <p className="product-price-modal">
             {discount > 0 ? (
               <>

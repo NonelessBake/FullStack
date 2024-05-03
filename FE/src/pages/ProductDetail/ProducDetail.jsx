@@ -65,7 +65,7 @@ export default function ProducDetail() {
                 </div>
                 <div className="bottom">
                   <p className="discription">{product.discription}</p>
-                  <ButtonAddToCart />
+                  <ButtonAddToCart product={product} />
                 </div>
                 <div className="info-tag">
                   <p>

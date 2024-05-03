@@ -2,11 +2,9 @@ import "./index.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem/CartItem";
-import { formatPrice } from "../../utils/formatPrice";
 import CartTotal from "../../components/CartTotal/CartTotal";
 export default function ShoppingCart() {
   const { cart } = useSelector((state) => state.cart);
-
   return (
     <div className={`${cart.length > 0 ? "shopping-cart" : "empty-cart"}`}>
       {cart.length === 0 ? (

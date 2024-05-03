@@ -28,6 +28,15 @@ export const userService = {
     updatePassword: async (id, dataUpdate) => {
         try {
             const data = await axiosInstance.put(`${APP_CONFIG.BASE_URL}/users/${id}/password`, dataUpdate)
+            return data
+        }
+        catch (err) {
+            return err
+        }
+    },
+    resetPassword: async (email, password_2, newPassword) => {
+        try {
+            const data = await axiosInstance.put(`${APP_CONFIG.BASE_URL}/users/reset-password`, { email, password_2, newPassword })
             if (!data) throw new Error("Can't update")
             else {
                 return data

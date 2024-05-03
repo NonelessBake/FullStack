@@ -7,6 +7,7 @@ userRouter.post('/register', middleware.validateSignup, userController.register)
 userRouter.post('/login', middleware.validateSignin, userController.login)
 userRouter.get('/:id', userController.getUser)
 userRouter.get('/information/:id', middleware.verifyAccessToken, userController.getUserInfo)
+userRouter.put('/reset-password', userController.resetPassword)
 userRouter.put('/information/:id', middleware.verifyAccessToken, userController.updateUserInfo)
 userRouter.put('/:id/password', middleware.verifyAccessToken, userController.updateUserPassword)
 export { userRouter }

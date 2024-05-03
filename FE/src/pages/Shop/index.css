@@ -1,12 +1,16 @@
 .shop {
   margin-bottom: 100px;
 }
+.shop .shop-title h1 {
+  font-size: 40px;
+  font-weight: 500;
+}
 .shop .shop-title {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
   border-bottom: 1px solid #c6c6c6;
 }
 .shop .shop-list {

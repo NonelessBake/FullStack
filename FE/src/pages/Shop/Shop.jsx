@@ -22,9 +22,7 @@ export default function Shop() {
   const [isLoading, setIsLoading] = useState(false);
   const componentRef = useRef(null);
   const handleSort = (e) => {
-    setQueryObject((prev) => {
-      prev, (prev.sort = e.target.value);
-    });
+    setQueryObject({ ...queryObject, sort: e.target.value });
   };
   useEffect(() => {
     navigate(
@@ -59,14 +57,10 @@ export default function Shop() {
     }
   }, [queryObject, navigate]);
   const onChangePage = (changePage) => {
-    setQueryObject((prev) => {
-      prev, (prev.page = changePage);
-    });
+    setQueryObject({ ...queryObject, page: changePage });
   };
   const onSelectCategory = (categoryItem) => {
-    setQueryObject((prev) => {
-      prev, (prev.category = categoryItem);
-    });
+    setQueryObject({ ...queryObject, category: categoryItem });
   };
   const pageList = generateArray(products.totalPages);
 
@@ -74,7 +68,6 @@ export default function Shop() {
     <main className="shop">
       <div className="shop-title">
         <h1>Shop</h1>
-        <div className="category-carousel">Category</div>
       </div>
       <div className="shop-list" ref={componentRef}>
         <aside className="category-filter">

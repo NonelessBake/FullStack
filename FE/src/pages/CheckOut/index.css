@@ -1,6 +1,42 @@
 .checkout-order {
-  max-width: 1000px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 100px;
+  padding: 0 15px;
+}
+.checkout-order .info {
+  flex: 2;
+}
+.checkout-order .total {
+  flex: 1;
+}
+.total-stn {
+  padding: 15px;
+}
+.checkout-order h4 {
+  background-color: #e9e9e9;
+  padding: 15px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.checkout-order .total {
+  line-height: 2rem;
+  background-color: #f7f4f4;
+}
+.checkout-order .total button {
+  text-transform: uppercase;
+  border: 1px solid black;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-top: 20px;
+  padding: 5px;
+  background-color: white;
+  transition: 0.15s;
+}
+.checkout-order .total button:hover {
+  background-color: black;
+  color: white;
+}
+.checkout-order .cart-totals {
+  height: fit-content;
 }
