@@ -40,9 +40,11 @@ export const productService = {
   },
   updateProductById: async (productId, dataUpdate) => {
     try {
-      const { data } = await axiosInstance.put(`${URL_PATH}/${productId}`, {
+      const data = await axiosInstance.put(`${URL_PATH}/${productId}`, {
         ...dataUpdate,
       });
+
+      return { data };
     } catch (err) {
       return err;
     }

@@ -19,3 +19,16 @@
 .name {
   text-align: center;
 }
+.product-item {
+  position: relative;
+}
+.edit-button {
+  position: absolute;
+  top: 5%;
+  right: 4%;
+  color: #c6c6c6;
+  transition: 0.15s;
+}
+.edit-button:hover {
+  color: black;
+}

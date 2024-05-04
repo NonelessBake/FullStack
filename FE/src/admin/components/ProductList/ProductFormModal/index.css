@@ -1,0 +1,116 @@
+.product-form-modal {
+  position: fixed;
+  z-index: 20;
+  background-color: white;
+  width: 40%;
+  height: 80%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px 25px;
+}
+.product-form-modal input {
+  border: 1px solid #c6c6c6;
+  margin-bottom: 15px;
+  padding: 5px 4px;
+  text-transform: capitalize;
+}
+#name {
+  width: 100%;
+}
+.price-style {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+.price-style div {
+  flex: 1;
+  width: 100%;
+}
+.price-style label {
+  width: 50%;
+}
+.price-style input {
+  width: 100%;
+}
+.tags-category {
+  gap: 10px;
+  display: flex;
+}
+.tags-category div {
+  width: 100%;
+  flex: 1;
+}
+.tags {
+  width: 50%;
+}
+.category {
+  width: 50%;
+}
+.tags-category input {
+  width: 100%;
+}
+#stock {
+  margin-left: 15px;
+}
+.image-list img {
+  width: 50px;
+  border: 1px solid #c6c6c6;
+  display: block;
+}
+.image-list {
+  display: flex;
+  gap: 10px;
+  object-fit: cover;
+}
+.image-list div {
+  position: relative;
+}
+.remove-url {
+  position: absolute;
+  top: -10%;
+  right: 0;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.remove-url:hover {
+  color: red;
+}
+.direct-button {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.direct-button button {
+  padding: 5px 10px;
+  border: 1px solid black;
+  background: black;
+  color: white;
+  transition: 0.15s;
+}
+.direct-button button:hover {
+  color: black;
+  background: white;
+}
+.form {
+  position: relative;
+}
+.close-form {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.close-form:hover {
+  color: red;
+  background-color: black;
+}

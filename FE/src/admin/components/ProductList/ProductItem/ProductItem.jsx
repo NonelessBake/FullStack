@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { formatPrice } from "../../../../utils/formatPrice";
 import "./index.css";
 import { PencilLine } from "lucide-react";
+import GlobalModal from "../../GlobalModal/GlobalModal";
+import ProductForm from "../ProductFormModal/ProductForm";
 export default function ProductItem(newProps) {
   const {
     productName,
@@ -14,6 +17,7 @@ export default function ProductItem(newProps) {
     category,
     _id,
   } = newProps.product;
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div className="product-item">
       <img src={imageUrl[0]} alt={productName} />
@@ -29,10 +33,16 @@ export default function ProductItem(newProps) {
           <span className="current-price">{formatPrice(price)}</span>
         )}
       </div>
-      <p className="stock">{stock}</p>
-      <button className="edit-button">
+      <p className="stock">Stock: {stock}</p>
+      <button className="edit-button" onClick={() => setOpenModal(!openModal)}>
         <PencilLine />
       </button>
+      <GlobalModal openModal={openModal} setOpenModal={setOpenModal} />
+      <ProductForm
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        product={newProps.product}
+      />
     </div>
   );
 }

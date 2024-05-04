@@ -8,7 +8,7 @@ const productRouter = express.Router()
 productRouter.get('', productController.getProducts)
 productRouter.get('/:id', productController.getProductById)
 productRouter.post('/', middleware.verifyAccessToken, middleware.verifyRole, authorization.verifyAdmin, memoryUploader.array('files'), productController.createProduct)
-productRouter.put('/:id', memoryUploader.array('files'), productController.updateProductById)
+productRouter.put('/:id', middleware.verifyAccessToken, middleware.verifyRole, authorization.verifyAdmin, memoryUploader.array('files'), productController.updateProductById)
 productRouter.delete('/:id', middleware.verifyAccessToken, middleware.verifyRole, authorization.verifyAdmin, productController.deleteProductById)
 
 
