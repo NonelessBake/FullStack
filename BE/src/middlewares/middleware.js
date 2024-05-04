@@ -46,6 +46,7 @@ const middleware = {
             const token = authToken.split(' ')[1]
             const data = verifyToken(token, 'AT')
             req.user = data
+            console.log(data);
             next()
         }
         catch (error) {

@@ -124,6 +124,7 @@ const productController = {
         try {
             const { id } = req.params
             const { productName, price, finalPrice, discount, imageUrl, stock, discription, category, tags } = req.body
+            console.log(req.files);
             const currentProduct = await ProductModel.findById(id)
             if (!currentProduct) throw new Error("Product not found")
             const differentElements = currentProduct.imageUrl.filter(item => !imageUrl.includes(item))
@@ -185,6 +186,7 @@ const productController = {
                 message: 'Update Successful'
             })
         }
+
         catch (error) {
             res.status(403).json({
                 message: error.message,

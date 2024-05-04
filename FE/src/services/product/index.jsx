@@ -44,7 +44,7 @@ export const productService = {
         ...dataUpdate,
       });
 
-      return { data };
+      return data;
     } catch (err) {
       return err;
     }

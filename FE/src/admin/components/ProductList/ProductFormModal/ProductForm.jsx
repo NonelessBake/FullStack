@@ -4,7 +4,6 @@ import { productService } from "../../../../services/product";
 export default function ProductForm(newProps) {
   const { openModal, setOpenModal, product } = newProps;
   const [isLoading, setIsLoading] = useState(false);
-  const [files, setFiles] = useState([]);
   const {
     productName,
     price,
@@ -62,7 +61,12 @@ export default function ProductForm(newProps) {
     const data = await productService.updateProductById(_id, formData);
     setIsLoading(false);
   };
-
+  const [files, setFiles] = useState([]);
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    setFiles(files);
+    setFormData({ ...formData, files });
+  };
   return (
     <div
       className="product-form-modal"
@@ -142,7 +146,12 @@ export default function ProductForm(newProps) {
         </div>
         <div>
           <label htmlFor="file">Image List</label>
-          <input type="file" multiple name="files[]" />
+          <input
+            type="file"
+            multiple
+            onChange={handleFileChange}
+            name="files[]"
+          />
         </div>
         <div className="image-list">
           {formData.imageUrl.map((item, index) => (

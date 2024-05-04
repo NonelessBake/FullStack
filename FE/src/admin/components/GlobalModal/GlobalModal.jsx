@@ -7,8 +7,6 @@ export default function GlobalModal(newProps) {
       onClick={() => setOpenModal((prev) => !prev)}
       className={`global-modal`}
       style={{ display: `${openModal ? `block` : "none"} ` }}
-    >
-      GlobalModal
-    </div>
+    ></div>
   );
 }
