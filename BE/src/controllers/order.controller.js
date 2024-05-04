@@ -11,7 +11,6 @@ const orderController = {
         try {
             const role = req.role
             const user = req.user
-            console.log(user);
             let findData = []
             if (role === 'admin') {
                 findData = await OrderModel.find().populate("orderList.productId")

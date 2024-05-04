@@ -88,13 +88,17 @@ export default function Shop() {
     setQueryObject((prev) => ({ ...prev, sortBy: e.target.value }));
   };
   const onSelectCategory = (category) => {
-    setQueryObject((prev) => ({ ...prev, category }));
+    let currentCategory = queryObject?.category?.split("-").join(" ");
+    if (category === currentCategory) {
+      setQueryObject((prev) => ({ ...prev, category: undefined }));
+    } else {
+      setQueryObject((prev) => ({ ...prev, category }));
+    }
   };
   if (queryObject.page > products.totalPages) {
     setQueryObject((prev) => ({ ...prev, page: products.totalPages }));
   }
   const pageList = generateArray(products.totalPages);
-
   return (
     <main className="shop">
       <div className="shop-title">

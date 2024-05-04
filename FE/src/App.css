@@ -16,6 +16,9 @@ ol {
   padding: 0;
   margin: 0;
 }
+.app {
+  position: relative;
+}
 a {
   text-decoration: none;
 }
