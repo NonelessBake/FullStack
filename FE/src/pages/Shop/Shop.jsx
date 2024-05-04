@@ -12,21 +12,30 @@ export default function Shop() {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = queryString.parse(location.search);
-
   const [queryObject, setQueryObject] = useState({
     page: queryParams.page || 1,
     search: queryParams.search || undefined,
     category: queryParams.category || undefined,
     sort: queryParams.sortBy || "latest",
   });
-  const newQueryString = queryString.stringify(queryObject);
+
   const [isLoading, setIsLoading] = useState(false);
   const componentRef = useRef(null);
   const handleSort = (e) => {
     setQueryObject({ ...queryObject, sort: e.target.value });
   };
   useEffect(() => {
-    navigate(`/shop/?${newQueryString}`);
+    navigate(
+      `/shop/?page=${queryObject.page}${
+        queryObject.search
+          ? `&search=${queryObject.search.split(" ").join("-")}`
+          : ""
+      }${
+        queryObject.category
+          ? `&category=${queryObject.category.split(" ").join("-")}`
+          : ""
+      }&sortBy=${queryObject.sort}`
+    );
     const fetch = async () => {
       setIsLoading(true);
       const { data } = await productService.getProducts({
@@ -46,7 +55,7 @@ export default function Shop() {
         behavior: "smooth",
       });
     }
-  }, [queryObject]);
+  }, [queryObject, navigate]);
   const onChangePage = (changePage) => {
     setQueryObject({ ...queryObject, page: changePage });
   };
@@ -57,6 +66,7 @@ export default function Shop() {
 
   return (
     <main className="shop">
+      z
       <div className="shop-title">
         <h1>Shop</h1>
       </div>
