@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import logo from "../../../assets/logo.png";
 import logoBlack from "../../../assets/logoblack.png.webp";
 import { motion } from "framer-motion";
-import {
-  LayoutDashboard,
-  Store,
-  ShoppingBasket,
-  Users,
-  ArrowRight,
-} from "lucide-react";
+import { Store, ShoppingBasket, Users, ArrowRight } from "lucide-react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 const navLinks = [
   {

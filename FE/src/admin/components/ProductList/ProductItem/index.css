@@ -1,0 +1,21 @@
+.old-price {
+  color: #c6c6c6;
+  text-decoration: line-through;
+  font-size: 16px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.discount {
+  color: red;
+  display: inline-block;
+  margin-right: 10px;
+}
+.final-price {
+  font-weight: 500;
+}
+.current-price {
+  font-weight: 500;
+}
+.name {
+  text-align: center;
+}

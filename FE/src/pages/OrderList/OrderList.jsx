@@ -38,7 +38,7 @@ export default function OrderList() {
                 </td>
                 <td className="order-id">{order._id}</td>
                 <td className="order-product">
-                  {order.orderList.map((item, index) => (
+                  {order.orderList.map((item) => (
                     <div className="order-item" key={item.productId._id}>
                       <div>
                         <Link to={`/shop/${item.productId._id}`}>

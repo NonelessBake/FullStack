@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { productService } from "../../../services/product";
 import { APP_CONFIG } from "../../../config/appConfig";
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-
+import ProductItem from "./ProductItem/ProductItem";
+import "./index.css";
+import { generateArray } from "../../../utils/generateArray";
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -71,7 +73,52 @@ function ProductList() {
     };
     getPagedProduct(queryObject);
   }, [queryObject]);
-  console.log(products);
-  return <div>ProductList</div>;
+  const onChangePage = (page) => {
+    const currentPage = queryObject.page;
+    const totalPages = products.totalPages;
+    if (currentPage > totalPages) {
+      setQueryObject((prev) => ({ ...prev, page: totalPages }));
+    } else {
+      setQueryObject((prev) => ({ ...prev, page }));
+    }
+  };
+
+  if (queryObject.page > products.totalPages) {
+    setQueryObject((prev) => ({ ...prev, page: products.totalPages }));
+  }
+  const pageList = generateArray(products.totalPages);
+  return (
+    <>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          <div className="product-container">
+            {products?.data?.map((item) => (
+              <React.Fragment key={item._id}>
+                <ProductItem product={item} />
+              </React.Fragment>
+            ))}
+          </div>
+          <div className="page-button-container">
+            {products.totalPages > 1 &&
+              pageList.map((item, index) => (
+                <button
+                  className={`page-button ${
+                    queryObject.page == item + 1
+                      ? `active-page`
+                      : "non-active-page"
+                  }`}
+                  onClick={() => onChangePage(item + 1)}
+                  key={index}
+                >
+                  {item + 1}
+                </button>
+              ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 export { ProductList };

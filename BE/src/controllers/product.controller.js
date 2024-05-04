@@ -123,11 +123,64 @@ const productController = {
     updateProductById: async (req, res) => {
         try {
             const { id } = req.params
+            const { productName, price, finalPrice, discount, imageUrl, stock, discription, category, tags } = req.body
             const currentProduct = await ProductModel.findById(id)
-            currentProduct.finalPrice = currentProduct.price * (1 - currentProduct.discount / 100)
+            if (!currentProduct) throw new Error("Product not found")
+            const differentElements = currentProduct.imageUrl.filter(item => !imageUrl.includes(item))
+            if (differentElements.length > 0) {
+                currentProduct.imageUrl = currentProduct.imageUrl.filter(item => !differentElements.includes(item))
+            }
+            const listFile = req.files
+            if (!listFile) {
+                if (currentProduct.imageUrl.length === 0) throw new Error("Missing Image")
+                else {
+                    for (const url of differentElements) {
+                        const publicId = `Products/${currentProduct._id}/${url.match(/\/v\d+\/Products\/[^/]+\/([^\.]+)/)[1]}.webp`;
+                        try {
+                            cloudinary.uploader.destroy(publicId);
+                            console.log(publicId);
+                        } catch (error) {
+                            throw new Error("Can't delete")
+                        }
+                    }
+                }
+            }
+            else {
+                for (let file in listFile) {
+                    const dataUrl = `data:${listFile[file].mimetype};base64,${listFile[file].buffer.toString('base64')}`
+                    const fileName = `${Date.now()}-${listFile[file].originalname}`
+                    await cloudinary.uploader.upload(dataUrl, {
+                        public_id: fileName,
+                        resource_type: 'auto',
+                        folder: `Products/${currentProduct._id.toString()}`
+                    })
+                }
+                const listImage = await cloudinary.api.resources({
+                    type: 'upload',
+                    prefix: `Products/${currentProduct._id.toString()}`
+                })
+                const urlList = listImage.resources.map(resource => resource.secure_url)
+                currentProduct.imageUrl = [...currentProduct.imageUrl, ...urlList]
+                for (const url of differentElements) {
+                    const publicId = `Products/${currentProduct._id}/${url.match(/\/v\d+\/Products\/[^/]+\/([^\.]+)/)[1]}.webp`;
+                    try {
+                        cloudinary.uploader.destroy(publicId);
+                        console.log(publicId);
+                    } catch (error) {
+                        throw new Error("Can't delete")
+                    }
+                }
+            }
+            currentProduct.productName = productName ? productName : currentProduct.productName
+            currentProduct.tags = tags ? tags : currentProduct.tags
+            currentProduct.price = price ? price : currentProduct.price
+            currentProduct.category = category ? category : currentProduct.category
+            currentProduct.discount = discount ? discount : currentProduct.discount
+            currentProduct.stock = stock ? stock : currentProduct.stock
+            currentProduct.discription = discription ? discription : currentProduct.discription
+            currentProduct.finalPrice = finalPrice ? finalPrice : currentProduct.finalPrice
             await currentProduct.save()
             return res.status(201).json({
-                data: currentProduct,
                 success: true,
                 message: 'Update Successful'
             })
@@ -145,12 +198,11 @@ const productController = {
             const { id } = req.params
             const currentProduct = await ProductModel.findOneAndDelete({ _id: id })
             if (!currentProduct) throw new Error('Product not found')
-            const currentFolderPath = `Products/${currentProduct.productName.replace(' ', '-')}-${currentProduct.cpu}-${currentProduct.vga}-${currentProduct.ram}`
+            const currentFolderPath = `Products/${currentProduct._id}`
             const findImageFolder = await cloudinary.api.delete_resources_by_prefix(currentFolderPath,
                 { resource_type: 'image' })
             if (!findImageFolder) throw new Error('Cloud image folder not found')
             await cloudinary.api.delete_folder(currentFolderPath);
-
             res.status(200).json({
                 message: 'Delete Successful',
                 success: true
