@@ -27,7 +27,6 @@ export default function Home() {
         <h2>Latest Products</h2>
         <ProductList products={products} />
       </div>
-      <Collection />
       <Stylist />
       <Subcribe />
       <Brand />
