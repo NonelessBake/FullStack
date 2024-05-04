@@ -5,6 +5,7 @@ export const orderService = {
     getOrderList: async () => {
         try {
             const data = await axiosInstance.get(`${APP_CONFIG.BASE_URL}/order`)
+            return data
         } catch (err) {
             return err
         }

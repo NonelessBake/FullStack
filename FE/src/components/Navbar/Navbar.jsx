@@ -13,6 +13,7 @@ import { useState } from "react";
 import CartList from "../CartList/CartList";
 import GlobalModal from "../GlobalModal/GlobalModal";
 import UserModal from "../UserModal/UserModal";
+import SearchModal from "../SearchModal/SearchModal";
 
 export default function Navbar(newProps) {
   const { cart } = useSelector((state) => state.cart);
@@ -29,16 +30,15 @@ export default function Navbar(newProps) {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  const modalStyle = {
+    display: showModal ? "block" : "none",
+  };
   const dispatch = useDispatch();
-
   const onLogout = () => {
     dispatch(logout());
     handleCloseUserModal();
     handleCloseModal();
     navigate("/");
-  };
-  const modalStyle = {
-    display: showModal ? "block" : "none",
   };
 
   const [userModal, setUserModal] = useState(false);
@@ -50,6 +50,16 @@ export default function Navbar(newProps) {
   };
   const userModalActive = {
     display: userModal ? "block" : "none",
+  };
+  const [searchModal, setSearchModal] = useState(false);
+  const handleShowSearchModal = () => {
+    setSearchModal(true);
+  };
+  const handleCloseSearchModal = () => {
+    setSearchModal(false);
+  };
+  const searchModalActive = {
+    display: searchModal ? "block" : "none",
   };
   return (
     <nav className={`navbar-container ${!isHomeActive ? "navbar-single" : ""}`}>
@@ -85,10 +95,19 @@ export default function Navbar(newProps) {
         </ul>
       </div>
       <div className="nav-right">
-        <div>
-          <button className="search-button">
+        <div className="search">
+          <button className="search-button" onClick={handleShowSearchModal}>
             <IoMdSearch size={25} />
           </button>
+          <SearchModal
+            searchModalActive={searchModalActive}
+            handleCloseSearchModal={handleCloseSearchModal}
+          />
+          <GlobalModal
+            searchModal={searchModal}
+            searchModalActive={searchModalActive}
+            handleCloseSearchModal={handleCloseSearchModal}
+          />
         </div>
         <div className="user">
           <button className="user-button" onClick={handleShowUserModal}>

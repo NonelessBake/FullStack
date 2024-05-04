@@ -5,7 +5,7 @@ export default function UserModal(newProps) {
   const { handleCloseUserModal, userModalActive, isLogin, onLogout, userInfo } =
     newProps;
   return (
-    <div className={`user-modal`} style={userModalActive}>
+    <div className="user-modal" style={userModalActive}>
       {!isLogin ? (
         <div className="navigate-auth">
           <p>

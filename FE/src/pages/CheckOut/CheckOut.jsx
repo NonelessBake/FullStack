@@ -23,7 +23,7 @@ export default function CheckOut() {
             <div className="info">
               <CheckoutInfo disabled={disabled} />
             </div>
-            <div className="total">
+            <div className="total" style={{ height: "fit-content" }}>
               <CartTotal disabled={disabled} userInfo={userInfo} />
             </div>
           </>

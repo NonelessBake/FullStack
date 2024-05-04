@@ -5,15 +5,17 @@ export default function GlobalModal(newProps) {
     handleCloseModal,
     handleCloseUserModal,
     userModalActive,
+    searchModalActive,
+    handleCloseSearchModal,
+    searchModal,
   } = newProps;
-
   return (
     <div
-      className="cart-modal"
-      style={modalStyle || userModalActive}
-      onClick={handleCloseModal || handleCloseUserModal}
-    >
-      <div className="modal-content" onClick={handleCloseModal}></div>
-    </div>
+      className={`cart-modal ${searchModal ? "black-global" : ""}`}
+      style={modalStyle || userModalActive || searchModalActive}
+      onClick={
+        handleCloseModal || handleCloseUserModal || handleCloseSearchModal
+      }
+    ></div>
   );
 }

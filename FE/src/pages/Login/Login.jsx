@@ -4,7 +4,7 @@ import { authService } from "../../services/auth";
 import { login } from "../../store/slice/auth";
 import "./index.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -34,6 +34,7 @@ export default function Login() {
       setIsFail(true);
     }
   };
+
   return (
     <>
       {isLogin ? (

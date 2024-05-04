@@ -17,19 +17,23 @@ export default function OrderList() {
   console.log(orderList);
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Order ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      {isLoading ? (
+        <div>...Loading</div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Order ID</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Total Price</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      )}
     </div>
   );
 }
