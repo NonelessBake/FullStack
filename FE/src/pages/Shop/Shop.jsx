@@ -11,32 +11,42 @@ export default function Shop() {
   const [isSuccess, setIsSuccess] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const queryParams = queryString.parse(location.search);
-  const [queryObject, setQueryObject] = useState({
+  let queryParams = queryString.parse(location.search);
+  let [queryObject, setQueryObject] = useState({
     page: queryParams.page || 1,
     search: queryParams.search || undefined,
     category: queryParams.category || undefined,
-    sort: queryParams.sortBy || "latest",
+    sortBy: queryParams.sortBy || "latest",
   });
-
   const [isLoading, setIsLoading] = useState(false);
   const componentRef = useRef(null);
-  const handleSort = (e) => {
-    setQueryObject({ ...queryObject, sort: e.target.value });
-  };
+  useEffect(
+    () =>
+      setQueryObject({
+        page: queryParams.page || 1,
+        search: queryParams.search || undefined,
+        category: queryParams.category || undefined,
+        sortBy: queryParams.sortBy || "latest",
+      }),
+    [
+      queryParams?.page,
+      queryParams?.search,
+      queryParams?.category,
+      queryParams?.sortBy,
+    ]
+  );
+
   useEffect(() => {
-    navigate(
-      `/shop/?page=${queryObject.page}${
-        queryObject.search
-          ? `&search=${queryObject.search.split(" ").join("-")}`
-          : ""
-      }${
-        queryObject.category
-          ? `&category=${queryObject.category.split(" ").join("-")}`
-          : ""
-      }&sortBy=${queryObject.sort}`
-    );
-    const fetch = async () => {
+    if (componentRef.current) {
+      const { y } = componentRef.current.getBoundingClientRect();
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+    }
+  }, [queryObject]);
+  useEffect(() => {
+    const getPagedProduct = async (queryObject) => {
       setIsLoading(true);
       const { data } = await productService.getProducts({
         ...queryObject,
@@ -46,27 +56,47 @@ export default function Shop() {
       if (!data) setIsSuccess(false);
       else setIsSuccess(true);
       setIsLoading(false);
+
+      const query = [];
+      for (const [key, value] of Object.entries(queryObject)) {
+        if (value !== undefined) {
+          const temp = [
+            key,
+            ["search", "category"].includes(key)
+              ? value?.split(" ")?.join("-")
+              : value,
+          ];
+          query.push(temp.join("="));
+        }
+      }
+      navigate(`/shop?${query.join("&")}`);
     };
-    fetch();
-    if (componentRef.current) {
-      const { y } = componentRef.current.getBoundingClientRect();
-      window.scrollTo({
-        top: y,
-        behavior: "smooth",
-      });
+    getPagedProduct(queryObject);
+  }, [queryObject]);
+
+  const onChangePage = (page) => {
+    const currentPage = queryObject.page;
+    const totalPages = products.totalPages;
+    if (currentPage > totalPages) {
+      setQueryObject((prev) => ({ ...prev, page: totalPages }));
+    } else {
+      setQueryObject((prev) => ({ ...prev, page }));
     }
-  }, [queryObject, navigate]);
-  const onChangePage = (changePage) => {
-    setQueryObject({ ...queryObject, page: changePage });
   };
-  const onSelectCategory = (categoryItem) => {
-    setQueryObject({ ...queryObject, category: categoryItem });
+
+  const handleSort = (e) => {
+    setQueryObject((prev) => ({ ...prev, sortBy: e.target.value }));
   };
+  const onSelectCategory = (category) => {
+    setQueryObject((prev) => ({ ...prev, category }));
+  };
+  if (queryObject.page > products.totalPages) {
+    setQueryObject((prev) => ({ ...prev, page: products.totalPages }));
+  }
   const pageList = generateArray(products.totalPages);
 
   return (
     <main className="shop">
-      z
       <div className="shop-title">
         <h1>Shop</h1>
       </div>
@@ -114,7 +144,7 @@ export default function Shop() {
               className="select-sort"
               name="sortBy"
               onChange={handleSort}
-              defaultValue={queryObject.sort}
+              defaultValue={queryObject.sortBy}
             >
               <option value="lowest">Price: Low to High</option>
               <option value="highest">Price: High to Low</option>
@@ -126,23 +156,25 @@ export default function Shop() {
             <>Loading...</>
           ) : (
             <div>
-              <ProductList products={products.data} page={queryObject.page} />
-              <div className="page-button-container">
-                {products.totalPages > 1 &&
-                  pageList.map((item, index) => (
-                    <button
-                      className={`page-button ${
-                        queryObject.page == item + 1
-                          ? `active-page`
-                          : "non-active-page"
-                      }`}
-                      onClick={() => onChangePage(item + 1)}
-                      key={index}
-                    >
-                      {item + 1}
-                    </button>
-                  ))}
-              </div>
+              <>
+                <ProductList products={products.data} page={queryObject.page} />
+                <div className="page-button-container">
+                  {products.totalPages > 1 &&
+                    pageList.map((item, index) => (
+                      <button
+                        className={`page-button ${
+                          queryObject.page == item + 1
+                            ? `active-page`
+                            : "non-active-page"
+                        }`}
+                        onClick={() => onChangePage(item + 1)}
+                        key={index}
+                      >
+                        {item + 1}
+                      </button>
+                    ))}
+                </div>
+              </>
             </div>
           )}
         </aside>

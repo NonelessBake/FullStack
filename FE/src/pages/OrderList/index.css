@@ -1,0 +1,60 @@
+.order-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.order-list table {
+  text-align: left;
+  width: 60%;
+  border: 1px solid #c6c6c6;
+}
+
+.order-list th,
+.order-list td,
+.order-list tr {
+  vertical-align: top;
+  text-align: left;
+  border-bottom: 1px solid #c6c6c6;
+  text-transform: capitalize;
+  border: 1px solid #c6c6c6;
+}
+.order-list th {
+  padding: 5px 15px;
+}
+.order-list .order-item {
+  display: flex;
+  gap: 10px;
+}
+.order-stt {
+  width: 2%;
+}
+.order-id {
+  width: 2%;
+}
+.order-product {
+  width: 15%;
+}
+.order-item {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.order-product a {
+  width: 100px;
+  display: block;
+}
+.order-info a,
+.order-info p {
+  width: 100%;
+  color: #868686;
+  transition: 0.15s;
+  border: none;
+}
+.order-info a:hover {
+  color: black;
+}
+.order-total {
+  width: 10%;
+}
+.order-status {
+  width: 5%;
+}

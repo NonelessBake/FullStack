@@ -147,7 +147,3 @@ li:hover .hover-active::after {
 .navbar-single .cart-length {
   color: black;
 }
-
-.nav-right .search {
-  position: relative;
-}

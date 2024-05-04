@@ -10,7 +10,7 @@ export const productService = {
         }&${params.pageSize && `pageSize=${params.pageSize}`}&${
           params.search && `search=${params.search}`
         }&${params.category && `category=${params.category}`}&${
-          params.sort && `sortBy=${params.sort}`
+          params.sortBy && `sortBy=${params.sortBy}`
         }`
       );
       if (!data) throw new Error("Product data is missing");

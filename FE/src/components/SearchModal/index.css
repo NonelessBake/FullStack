@@ -4,8 +4,50 @@
   left: 0;
   background: white;
   width: 50%;
-  height: 100%;
-  transform: translateX(50%);
+  height: 20%;
+  transform: translate(50%, 180%);
   color: black;
   z-index: 1000;
+}
+.close-search-modal {
+  position: absolute;
+  top: 10%;
+  right: 3%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+}
+.search-input {
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  padding: 0 30px;
+}
+.search-input input {
+  width: 80%;
+  border-bottom: 1px solid black;
+  height: fit-content;
+  margin-right: 20px;
+}
+.search-input button {
+  width: 20%;
+  text-transform: capitalize;
+}
+.search-input button {
+  border-bottom: 1px solid black;
+  width: fit-content;
+}
+.close-search-modal {
+  background-color: black;
+  color: white;
+}
+
+.close-search-modal:hover {
+  color: black;
+  background: white;
 }
