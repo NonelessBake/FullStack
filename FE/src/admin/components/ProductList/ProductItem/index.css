@@ -22,6 +22,16 @@
 .product-item {
   position: relative;
 }
+.delete-product {
+  position: absolute;
+  top: 5%;
+  left: 4%;
+  color: #c6c6c6;
+  transition: 0.15s;
+}
+.delete-product:hover {
+  color: red;
+}
 .edit-button {
   position: absolute;
   top: 5%;

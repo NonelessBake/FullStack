@@ -1,0 +1,10 @@
+.add-product-button {
+  position: absolute;
+  right: -30px;
+  top: 185px;
+  cursor: pointer;
+}
+.add-product-button:hover {
+  color: white;
+  background-color: black;
+}

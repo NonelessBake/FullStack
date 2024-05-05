@@ -1,32 +1,18 @@
 import { useState } from "react";
 import "./index.css";
 import { productService } from "../../../../services/product";
-export default function ProductForm(newProps) {
-  const { openModal, setOpenModal, product } = newProps;
+export default function CreateProductForm(newProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const {
-    productName,
-    price,
-    finalPrice,
-    discount,
-    imageUrl,
-    discription,
-    stock,
-    tags,
-    category,
-    _id,
-  } = product;
+  const { openModal, setOpenModal } = newProps;
   const [formData, setFormData] = useState({
-    _id,
-    productName,
-    price,
-    finalPrice,
-    discount,
-    imageUrl,
-    discription,
-    stock,
-    tags,
-    category,
+    productName: undefined,
+    price: undefined,
+    finalPrice: undefined,
+    discount: undefined,
+    discription: undefined,
+    stock: undefined,
+    tags: [],
+    category: [],
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,46 +41,45 @@ export default function ProductForm(newProps) {
     e.preventDefault();
     const newFormData = new FormData();
     newFormData.append("productName", formData.productName);
-    newFormData.append("price", formData.price);
-    newFormData.append("finalPrice", formData.finalPrice);
-    newFormData.append("discount", formData.discount);
+    newFormData.append("price", Number(formData.price));
+    newFormData.append("finalPrice", Number(formData.finalPrice));
+    newFormData.append("discount", Number(formData.discount));
     newFormData.append("discription", formData.discription);
-    newFormData.append("stock", formData.stock);
+    newFormData.append("stock", Number(formData.stock));
     newFormData.append("tags", formData.tags);
     newFormData.append("category", formData.category);
-    formData.imageUrl.forEach((url) => {
-      newFormData.append(`imageUrl`, url);
-    });
     for (let i = 0; i < files.length; i++) {
       newFormData.append("files", files[i]);
     }
-
     setIsLoading(true);
-    const data = await productService.updateProductById(_id, newFormData);
+    const data = await productService.createProduct(newFormData);
     console.log(data);
     if (data) {
-      alert("update succeed");
+      alert("Product Created!");
       setFiles([]);
-      setFormData({ ...product });
-      setOpenModal((prev) => !prev);
+      setFormData({
+        productName: "",
+        price: "",
+        finalPrice: "",
+        discount: "",
+        discription: "",
+        stock: "",
+        tags: [],
+        category: [],
+      });
     }
     setIsLoading(false);
-  };
-  const onRemoveUrl = (url) => {
-    const newList = formData.imageUrl.filter((item) => item !== url);
-    setFormData((prev) => ({ ...prev, imageUrl: [...newList] }));
   };
 
   const onCancel = (e) => {
     e.preventDefault();
     setFormData({ ...newProps.product });
     setFiles([]);
-    setOpenModal((prev) => !prev);
   };
   return (
     <div
       className="product-form-modal"
-      style={{ display: `${openModal ? `block` : "none"}` }}
+      style={{ display: `${openModal ? "block" : "none"}` }}
     >
       {isLoading ? (
         <div>Loading...</div>
@@ -103,44 +88,41 @@ export default function ProductForm(newProps) {
           <div>
             <label htmlFor="productName">Product Name: </label>
             <input
+              required
               id="name"
               onChange={handleChange}
               type="text"
               name="productName"
-              value={formData.productName}
-              required
             />
           </div>
           <div className="price-style">
             <div>
               <label htmlFor="price">Price:</label>
               <input
+                required
                 onChange={handleChange}
                 type="number"
-                value={formData.price}
                 name="price"
-                required
                 id="price"
               />
             </div>
             <div>
               <label htmlFor="discount">Discount:</label>
               <input
+                required
                 onChange={handleChange}
                 type="number"
-                value={formData.discount}
                 name="discount"
-                required
                 id="discount"
               />
             </div>
             <div>
               <label htmlFor="finalPrice">Final Price:</label>
               <input
-                type="number"
-                value={formData.finalPrice}
-                name="finalPrice"
                 required
+                type="number"
+                name="finalPrice"
+                value={formData.finalPrice}
                 id="finalPrice"
               />
             </div>
@@ -148,64 +130,46 @@ export default function ProductForm(newProps) {
           <div className="tags-category">
             <div>
               <label htmlFor="tags">Tags:</label>
-              <input
-                onChange={handleChange}
-                required
-                type="text"
-                name="tags"
-                value={formData.tags}
-              />
+              <input required onChange={handleChange} type="text" name="tags" />
             </div>
             <div>
               <label htmlFor="category">Category:</label>
               <input
+                required
                 onChange={handleChange}
                 type="text"
-                required
                 name="category"
-                value={formData.category}
               />
             </div>
           </div>
           <div>
             <label htmlFor="stock">Stock:</label>
             <input
+              required
               onChange={handleChange}
               type="number"
               name="stock"
               id="stock"
-              required
-              value={formData.stock}
             />
           </div>
           <div>
             <label htmlFor="discription">Discription:</label>
             <textarea
-              name="discription"
               required
+              name="discription"
               onChange={handleChange}
               value={formData.discription}
             ></textarea>
           </div>
           <div>
-            <label htmlFor="file">Image List:</label>
+            <label htmlFor="file">Image List</label>
             <input
+              required
               type="file"
               multiple
-              className="input-file"
               onChange={handleFileChange}
               name="files"
             />
-          </div>
-          <div className="image-list">
-            {formData.imageUrl.map((item, index) => (
-              <div key={index}>
-                <img src={item} alt={index} />
-                <span onClick={() => onRemoveUrl(item)} className="remove-url">
-                  X
-                </span>
-              </div>
-            ))}
           </div>
           <div className="direct-button">
             <button>Save</button>

@@ -1,6 +1,6 @@
 .product-form-modal {
   position: fixed;
-  z-index: 20;
+  z-index: 50;
   background-color: white;
   width: 40%;
   height: 80%;
@@ -12,8 +12,8 @@
 }
 .product-form-modal input {
   border: 1px solid #c6c6c6;
-  margin-bottom: 7px;
-  padding: 3px 4px;
+  margin-bottom: 15px;
+  padding: 5px 4px;
   text-transform: capitalize;
 }
 #name {
@@ -113,12 +113,4 @@
 .close-form:hover {
   color: red;
   background-color: black;
-}
-.product-form-modal textarea {
-  width: 100%;
-  border: 1px solid #c6c6c6;
-}
-.product-form-modal .input-file {
-  width: 50%;
-  margin-left: 15px;
 }

@@ -4,4 +4,29 @@
   gap: 30px;
 }
 .page-button-container {
+  display: flex;
+  gap: 3px;
+  margin: 15px 0;
+}
+.page-button-container button {
+  padding: 5px;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.active-page {
+  color: white;
+  background: black;
+}
+.non-active-page {
+  background-color: white;
+  transition: 0.15s;
+  color: black;
+}
+.non-active-page:hover {
+  color: white;
+  background: black;
 }

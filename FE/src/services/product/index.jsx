@@ -31,9 +31,16 @@ export const productService = {
       return err;
     }
   },
-  createProduct: async (data) => {
+  createProduct: async (formData) => {
     try {
-      const { data } = await axiosInstance.post(`${URL_PATH}`, { ...data });
+      const data = await axiosInstance.post(`${URL_PATH}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(data);
+      console.log(formData);
+      return data;
     } catch (err) {
       return err;
     }
@@ -51,6 +58,17 @@ export const productService = {
         }
       );
 
+      return data;
+    } catch (err) {
+      return err;
+    }
+  },
+  deleteProductById: async (productId) => {
+    try {
+      const data = await axiosInstance.delete(`${URL_PATH}/${productId}`);
+      if (!data) {
+        throw new Error("Delete failed");
+      }
       return data;
     } catch (err) {
       return err;

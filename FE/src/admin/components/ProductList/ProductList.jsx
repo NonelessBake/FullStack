@@ -93,12 +93,8 @@ function ProductList() {
         <div>Loading...</div>
       ) : (
         <div>
-          <div className="product-container">
-            {products?.data?.map((item) => (
-              <React.Fragment key={item._id}>
-                <ProductItem product={item} />
-              </React.Fragment>
-            ))}
+          <div>
+            Total: <span>{products.totalItems} products</span>
           </div>
           <div className="page-button-container">
             {products.totalPages > 1 &&
@@ -115,6 +111,13 @@ function ProductList() {
                   {item + 1}
                 </button>
               ))}
+          </div>
+          <div className="product-container">
+            {products?.data?.map((item) => (
+              <React.Fragment key={item._id}>
+                <ProductItem product={item} />
+              </React.Fragment>
+            ))}
           </div>
         </div>
       )}

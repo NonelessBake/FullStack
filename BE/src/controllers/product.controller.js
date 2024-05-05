@@ -64,6 +64,7 @@ const productController = {
     },
     createProduct: async (req, res) => {
         try {
+
             const { productName, tags, price, category, discount, stock, discription, finalPrice } = req.body
             const existProduct = await ProductModel.findOne({
                 productName,
@@ -107,7 +108,6 @@ const productController = {
             createdProduct.imageUrl = urlList
             createdProduct.save()
             return res.status(201).json({
-                data: createdProduct,
                 success: true,
             })
 
