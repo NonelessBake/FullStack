@@ -44,7 +44,9 @@ export default function ProducDetail() {
               </div>
               <div className="product-detail-content">
                 <div className="top">
-                  <h3 className="name">{product.productName}</h3>
+                  <h3 className="name" style={{ textAlign: "left" }}>
+                    {product.productName}
+                  </h3>
                   <p className="price">
                     {product.discount > 0 ? (
                       <>
@@ -59,7 +61,9 @@ export default function ProducDetail() {
                         <span className="discount">-{product.discount}%</span>
                       </>
                     ) : (
-                      <span className="current-price">{product.price}</span>
+                      <span className="current-price">
+                        {formatPrice(product.price)}
+                      </span>
                     )}
                   </p>
                 </div>
