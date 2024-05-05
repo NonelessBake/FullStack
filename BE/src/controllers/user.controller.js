@@ -20,7 +20,6 @@ const userController =
                 salt: hash.salt,
                 salt_2: hash_2.salt,
             })
-
             const createdUserInfo = await UserInfoModel.create({
                 user: createdUser._id
             })
@@ -45,6 +44,8 @@ const userController =
             const getUser = { ...currentUser.toObject() }
             delete getUser.password
             delete getUser.salt
+            delete getUser.salt_2
+            delete getUser.password_2
             const accessToken = generateToken({
                 userId: getUser._id,
                 email: getUser.email

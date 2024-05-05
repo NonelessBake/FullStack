@@ -38,11 +38,18 @@ export const productService = {
       return err;
     }
   },
-  updateProductById: async (productId, dataUpdate) => {
+  updateProductById: async (productId, formData) => {
     try {
-      const data = await axiosInstance.put(`${URL_PATH}/${productId}`, {
-        ...dataUpdate,
-      });
+      console.log(formData);
+      const data = await axiosInstance.put(
+        `${URL_PATH}/${productId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       return data;
     } catch (err) {

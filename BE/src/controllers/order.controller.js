@@ -86,7 +86,6 @@ const orderController = {
                 customer: user.userId,
                 subTotal
             })
-            console.log('1', createdOrder);
             res.status(201).json({
                 data: createdOrder,
                 success: true,

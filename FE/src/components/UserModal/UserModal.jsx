@@ -17,6 +17,13 @@ export default function UserModal(newProps) {
         </div>
       ) : (
         <div className="logged-in-user">
+          {userInfo?.role === "admin" && (
+            <p>
+              <Link to={`/admin`} onClick={handleCloseUserModal}>
+                Admin
+              </Link>
+            </p>
+          )}
           <p>
             <Link
               to={`/profile/${userInfo._id}/info`}

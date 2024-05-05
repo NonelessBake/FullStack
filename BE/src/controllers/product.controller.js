@@ -124,7 +124,6 @@ const productController = {
         try {
             const { id } = req.params
             const { productName, price, finalPrice, discount, imageUrl, stock, discription, category, tags } = req.body
-            console.log(req.files);
             const currentProduct = await ProductModel.findById(id)
             if (!currentProduct) throw new Error("Product not found")
             const differentElements = currentProduct.imageUrl.filter(item => !imageUrl.includes(item))
@@ -132,21 +131,20 @@ const productController = {
                 currentProduct.imageUrl = currentProduct.imageUrl.filter(item => !differentElements.includes(item))
             }
             const listFile = req.files
-            if (!listFile) {
+            if (!listFile && listFile.length === 0) {
                 if (currentProduct.imageUrl.length === 0) throw new Error("Missing Image")
                 else {
                     for (const url of differentElements) {
                         const publicId = `Products/${currentProduct._id}/${url.match(/\/v\d+\/Products\/[^/]+\/([^\.]+)/)[1]}.webp`;
                         try {
                             cloudinary.uploader.destroy(publicId);
-                            console.log(publicId);
                         } catch (error) {
                             throw new Error("Can't delete")
                         }
                     }
                 }
             }
-            else {
+            else if (listFile.length > 0) {
                 for (let file in listFile) {
                     const dataUrl = `data:${listFile[file].mimetype};base64,${listFile[file].buffer.toString('base64')}`
                     const fileName = `${Date.now()}-${listFile[file].originalname}`
@@ -166,7 +164,6 @@ const productController = {
                     const publicId = `Products/${currentProduct._id}/${url.match(/\/v\d+\/Products\/[^/]+\/([^\.]+)/)[1]}.webp`;
                     try {
                         cloudinary.uploader.destroy(publicId);
-                        console.log(publicId);
                     } catch (error) {
                         throw new Error("Can't delete")
                     }
@@ -180,6 +177,7 @@ const productController = {
             currentProduct.stock = stock ? stock : currentProduct.stock
             currentProduct.discription = discription ? discription : currentProduct.discription
             currentProduct.finalPrice = finalPrice ? finalPrice : currentProduct.finalPrice
+            console.log(currentProduct.imageUrl);
             await currentProduct.save()
             return res.status(201).json({
                 success: true,
