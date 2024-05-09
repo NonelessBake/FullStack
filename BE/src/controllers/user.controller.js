@@ -41,6 +41,7 @@ const userController =
             if (!currentUser) throw new Error('Wrong email or password')
             const checkPassword = bcryptHasing.verifyPassword(password, currentUser.password, currentUser.salt)
             if (!checkPassword) throw new Error('Wrong email or password')
+
             const getUser = { ...currentUser.toObject() }
             delete getUser.password
             delete getUser.salt

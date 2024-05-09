@@ -11,6 +11,7 @@ export const apiAuth = {
         throw new Error("missing data");
       }
     } catch (err) {
+      console.log(err.message);
       throw new Error(err.message);
     }
   },

@@ -32,14 +32,12 @@ export default function ChangePassword() {
           const data = await userService.updatePassword(userInfo._id, password);
           setIsLoading(false);
           setPassword({});
-          if (data.response.status === 403) {
-            setError("Password incorrect");
-          } else {
-            setError("");
-            alert("Password Updated");
-          }
+          setError("");
+          alert("Password Updated");
         } catch (err) {
-          setError("Password incorrect");
+          setIsLoading(false);
+          console.log(err);
+          setError(err.message);
         }
       } else {
         setError("Confirm New Password Incorrect");
@@ -56,25 +54,18 @@ export default function ChangePassword() {
             <label htmlFor="current-password">Current Password:</label>
             <input
               onChange={handleChange}
-              value={password.currentPassword}
               type="password"
               name="currentPassword"
             />
           </div>
           <div>
             <label htmlFor="new-passowrd">New Password:</label>
-            <input
-              onChange={handleChange}
-              value={password.newPassword}
-              type="password"
-              name="newPassword"
-            />
+            <input onChange={handleChange} type="password" name="newPassword" />
           </div>
           <div>
             <label htmlFor="confirm-new-password">Confirm New Password</label>
             <input
               onChange={handleChange}
-              value={password.confirmNewPassword}
               type="password"
               name="confirmNewPassword"
             />

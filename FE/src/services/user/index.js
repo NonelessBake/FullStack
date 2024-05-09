@@ -31,7 +31,7 @@ export const userService = {
             return data
         }
         catch (err) {
-            return err
+            throw new Error(err.response.data.message)
         }
     },
     resetPassword: async (email, password_2, newPassword) => {

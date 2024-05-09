@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const { isLogin } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFail, setIsFail] = useState(false);
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const onLogin = async (event) => {
     try {
@@ -22,9 +22,6 @@ export default function Login() {
         password,
       });
       setIsLoading(false);
-      if (!data) {
-        setIsFail(true);
-      }
       const { accessToken, userInfo, refreshToken } = data;
       if (accessToken && userInfo) {
         localStorage.setItem(
@@ -34,7 +31,8 @@ export default function Login() {
         dispatch(login({ accessToken, userInfo }));
       }
     } catch (error) {
-      setIsFail(true);
+      setError(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -83,9 +81,9 @@ export default function Login() {
                     className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
-                {isFail && (
+                {error.length > 0 && (
                   <div className="justify-center mb-5 text-red-600">
-                    Wrong email or password
+                    {error}
                   </div>
                 )}
                 <div className="flex justify-between">

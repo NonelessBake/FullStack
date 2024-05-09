@@ -9,7 +9,6 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_2, setPassword_2] = useState("");
-  console.log(password, password_2);
   const [isFail, setIsFail] = useState(false);
   const { isLogin } = useSelector((state) => state.auth);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -22,6 +21,7 @@ export default function Register() {
         password,
         password_2,
       });
+
       if (!data) setIsFail(true);
       else {
         alert("Register successful");

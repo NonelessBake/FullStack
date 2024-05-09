@@ -31,6 +31,10 @@ axiosInstance.interceptors.response.use(
       const {
         auth: { isLogin },
       } = store.getState();
+      if (error.config.url.includes("users/login")) {
+        console.log(error.response.data.message);
+        throw new Error(error.response.data.message);
+      }
       if (error.config.url.includes("/renew-access-token")) {
         localStorage.removeItem(APP_CONFIG.STORAGE_TOKEN_NAME.REFRESH_TOKEN);
         if (isLogin) {
@@ -45,11 +49,9 @@ axiosInstance.interceptors.response.use(
             const { accessToken, userInfo } =
               await authService.renewAccessToken(refreshToken);
             store.dispatch(login({ accessToken, userInfo }));
-
-            // Add a new field to the original request headers to mark it as retried
             originalRequest.headers["retry"] = true;
           } catch (refreshError) {
-            console.log("error axios response interceptor");
+            throw new Error(refreshError);
           }
         } else {
           if (isLogin) {
@@ -61,7 +63,6 @@ axiosInstance.interceptors.response.use(
         refreshAndRetryQueue.push({ resolve, reject });
       });
     } else if (originalRequest.headers["retry"]) {
-      // Do not retry the request if it has already been retried after renewing access token
       return Promise.reject(error);
     }
     return Promise.reject(error);
